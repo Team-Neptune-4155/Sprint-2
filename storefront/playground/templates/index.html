@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Building Availability</title>
+  <link rel="stylesheet" href="{% static 'default.css' %}">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1>Campus Room Availability</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="side-panel" id="side-panel">
+      <button id="toggle-panel">☰</button>
+      <div class="panel-content">
+        <h2>Room Availability</h2>
+        <div id="room-availability"></div>
+      </div>
+    </div>
+    <div class="map-container">
+      <svg width="891" height="764" viewBox="0 0 891 764" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M75.5 763H219.5V726.5H259V521.5L285.5 526.5V442.5L259 452V253.5H845V189.5H890V59.5H845V30H745V0.5H380V30H272.5V108H228.5C216.386 67.3 202.599 55.2484 172 43C138.052 34.4685 119.758 37.3762 89 62C67.6619 88.1435 61.5 108 65 147C73.5 199 136.547 214.405 136.5 215.5C136.453 216.595 136.5 253.5 136.5 253.5H39V399.5H17L1 489L17 574.5H39V726.5H75.5V763Z" stroke="white"/>
+      </svg>
+    </div>
+  </main>
+
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
