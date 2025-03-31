@@ -1,8 +1,9 @@
-/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  max-width: 175%;
+  max-height: 175%;
 }
 
 body {
@@ -83,12 +84,36 @@ main {
   margin-top: 1rem;
 }
 
+.back-to-building {
+  background: #00447c;
+  color: white;
+}
+
 /* Map Container Styles */
 .map-container {
   flex: 1;
   position: relative;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #f8f8f8;
+  transition: margin-left 0.3s ease;
+  margin-left: 0;
+}
+
+
+/* When side panel is collapsed */
+.side-panel.collapsed + .map-container {
+  margin-left: -250px; /* Width of the toggle button */
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .side-panel:not(.collapsed) + .map-container {
+    margin-left: 200px;
+  }
+  
+  .side-panel.collapsed + .map-container {
+    margin-left: 30px;
+  }
 }
 
 /* SVG Styles */
@@ -138,7 +163,6 @@ svg:active {
 }
 
 /* Zoom Controls */
-/* Zoom Controls */
 .zoom-controls {
   position: absolute;
   top: 1rem;
@@ -155,6 +179,7 @@ svg:active {
 
 .zoom-buttons {
   display: flex;
+  justify-content: space-between;
   gap: 0.5rem;
 }
 
@@ -177,12 +202,25 @@ svg:active {
   background-color: #006284;
 }
 
-#return-button {
+#reset-button {
   width: 100%;
+  display: flex;
   padding: 0.25rem 0.75rem;
   font-size: 0.9rem;
   display: block;
   height: auto;
+}
+
+#return-button {
+  background-color: #00447c;
+  color: white;
+  width: 100%;
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  display: block;
+  height: auto;
+  
 }
 
 /* Responsive Considerations */

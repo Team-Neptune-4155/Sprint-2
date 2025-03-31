@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sidePanel = document.getElementById("side-panel");
   const zoomInButton = document.getElementById("zoom-in");
   const zoomOutButton = document.getElementById("zoom-out");
-  const returnButton = document.getElementById("return-button");
+  const resetButton = document.getElementById("reset-button");
   const svg = document.querySelector("svg");
   const mapContainer = document.querySelector(".map-container");
   const roomAvailability = document.getElementById("room-availability");
@@ -31,6 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
     sidePanel.classList.toggle("collapsed");
   });
 
+  //helper function for side panel
+  function openSidePanel() {
+    sidePanel.classList.remove("collapsed");
+  }
+
   // Initialize map transform and event listeners
   function initMap() {
     updateTransform();
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupZoomHandlers();
     setupBuildingClickHandlers();
     setupRoomClickHandlers();
-    setupReturnButton();
+    setupResetButton();
   }
 
   // Update SVG transform based on current scale and translation
@@ -122,6 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
     buildings.forEach(building => {
       building.addEventListener("click", (e) => {
         e.stopPropagation();
+
+        openSidePanel();
         
         // Reset previous active building
         if (activeBuilding) {
@@ -157,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", (e) => {
       if (e.target.classList.contains("room") && e.target.classList.contains("visible")) {
         const roomElement = e.target;
+        openSidePanel();
         updateRoomInfo(roomElement);
       }
     });
@@ -178,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <p>Status: Open</p>
         <p>No rooms available in this building</p>
       `;
+      openSidePanel();
       return;
     }
 
@@ -274,11 +283,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return dates[roomNumber] || 'Recently';
   }
 
-  // Setup return button functionality
-  function setupReturnButton() {
-    returnButton.style.display = "block"; // Always visible
+  // Setup reset button functionality
+  function setupResetButton() {
+    resetButton.style.display = "block"; // Always visible
     
-    returnButton.addEventListener("click", () => {
+    resetButton.addEventListener("click", () => {
       // Reset map position and scale
       scale = 1;
       translateX = 0;
