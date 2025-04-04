@@ -56,6 +56,12 @@ svg path {
       transition: transform 0.3s ease;
       position: relative;
   }
+
+  .panel-content h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
   
   .side-panel.collapsed {
       transform: translateX(-220px);
@@ -92,7 +98,7 @@ svg path {
       padding-top: 50px;
   }
   
-  .m  ap-container svg {
+  .map-container svg {
       max-width: 100%;
       max-height: 100%;
       width: auto;
@@ -102,6 +108,55 @@ svg path {
   .side-panel.collapsed + .map-container {
       margin-left: -220px; 
   }
+
+  /* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.zoom-controls button {
+  background-color: #00447c;
+  color: white;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-controls button:hover {
+  background-color: #006284;
+}
+
+#reset-button {
+  width: 100%;
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  display: block;
+  height: auto;
+}
   
   #room-list {
       margin-top: 10px;
@@ -126,12 +181,10 @@ svg path {
   
   .room-item .dot.unavailable {
       background-color: red;
-<<<<<<< Updated upstream
-=======
   }
 
 
-.room {
+  .room {
     transition: fill 0.3s ease;
   }
 
@@ -175,5 +228,4 @@ svg path {
     fill: #006284;
     stroke-width: 4;
     stroke: black
->>>>>>> Stashed changes
   }
