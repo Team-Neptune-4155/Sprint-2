@@ -145,17 +145,43 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+<<<<<<< Updated upstream
   // Async function to fetch room data (will be replaced with database call later)
   async function fetchRoomData(buildingId) {
+=======
+
+  var room_Data = []
+  initData();
+
+  async function initData() {
+    const response = await fetch("static/rooms.json");
+    var check = await response.json();
+    room_Data = check;
+  }
+
+
+  // Async function to fetch room data (will be replaced with database call later)
+  async function fetchRoomData(buildingId) {
+
+    await initData();
+
+>>>>>>> Stashed changes
     const rooms = [];
     document.querySelectorAll(`.room.${buildingId}`).forEach(room => {
       const roomNumber = room.id.split('-').pop();
       rooms.push({
         id: room.id,
+<<<<<<< Updated upstream
         number: roomNumber,
         status: "Available", // Defaults - will come from DB later
         capacity: getRoomCapacity(roomNumber),
         type: getRoomType(roomNumber),
+=======
+        number: room_Data[0][1],
+        status: "Available", // Defaults - will come from DB later
+        capacity: room_Data[0][3],
+        type: room_Data[0][4],
+>>>>>>> Stashed changes
         lastCleaned: getLastCleanedDate(roomNumber)
       });
     });
@@ -338,4 +364,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
   }
+});
+
+document.querySelectorAll(".room").forEach(room => {
+  room.classList.remove("visible");
 });

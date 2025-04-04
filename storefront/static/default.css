@@ -126,4 +126,54 @@ svg path {
   
   .room-item .dot.unavailable {
       background-color: red;
+<<<<<<< Updated upstream
+=======
+  }
+
+
+.room {
+    transition: fill 0.3s ease;
+  }
+
+  .room.available {
+    fill: rgb(0, 255, 0);
+  }
+
+  .room.upcoming {
+    fill: orange; 
+  }
+
+  .room.occupied {
+    fill: red;
+  }
+
+
+
+  .room:hover {
+    opacity: 0.7;
+  }
+
+  .room.selected {
+    stroke-width: 4;
+    stroke: white;
+  }
+
+  .room {
+    display: none;
+  }
+
+  .room.visible {
+    display: inline;
+  }
+
+
+  .building {
+    transition: fill 0.3s ease;
+  }
+
+  .building.active {
+    fill: #006284;
+    stroke-width: 4;
+    stroke: black
+>>>>>>> Stashed changes
   }
