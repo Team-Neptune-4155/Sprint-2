@@ -136,12 +136,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Simplified room click handler
+  // Room click handler
   function setupRoomClickHandlers() {
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("room") && e.target.classList.contains("visible")) {
+    const rooms = document.querySelectorAll('.room');
+  
+    rooms.forEach(room => {
+      room.addEventListener('click', (e) => {
+        e.stopPropagation();
+  
+        // Remove 'selected' class from all rooms
+        rooms.forEach(r => r.classList.remove('selected'));
+  
+        // Add 'selected' class to the clicked room
+        room.classList.add('selected');
+  
+        // Open the side panel and update room info
         openSidePanel();
-      }
+        updateRoomInfo(room);
+      });
     });
   }
 
@@ -197,6 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
       accordion.innerHTML = ''; // Clear loading message
       
       rooms.forEach(room => {
+        const roomNumber = room.id.split('-').pop();
         const accordionItem = document.createElement('div');
         accordionItem.className = 'accordion-item';
         accordionItem.innerHTML = `
@@ -204,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="accordion-button collapsed" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#collapse${room.id}" 
                     aria-expanded="false" aria-controls="collapse${room.id}">
-              Room ${room.number}
+              Room ${roomNumber}
             </button>
           </h2>
           <div id="collapse${room.id}" class="accordion-collapse collapse" 
@@ -214,10 +227,17 @@ document.addEventListener("DOMContentLoaded", () => {
               <p>Capacity: ${room.capacity}</p>
               <p>Type: ${room.type}</p>
               <p>Last cleaned: ${room.lastCleaned}</p>
+              <button class="btn btn-primary schedule-btn" data-room="${room.number}">Schedule</button>
             </div>
           </div>
         `;
         accordion.appendChild(accordionItem);
+
+        // Add event listener to schedule button
+        accordionItem.querySelector('.schedule-btn').addEventListener('click', (e) => {
+          const roomNumber = e.target.getAttribute('data-room');
+          showScheduleModal(room.id.split('-').pop());
+        });
         
         // Link SVG room to accordion
         const svgRoom = document.getElementById(room.id);
@@ -280,6 +300,25 @@ document.addEventListener("DOMContentLoaded", () => {
         await updateBuildingInfo(buildingId);
       });
     });
+  }
+
+  // Helper function for schedule
+  function showScheduleModal(roomNumber) {
+    const modal = new bootstrap.Modal(document.getElementById('scheduleModal'));
+    const content = document.getElementById('scheduleContent');
+    const label = document.getElementById('scheduleModalLabel');
+  
+    label.textContent = `Schedule for Room ${roomNumber}`;
+  
+    content.innerHTML = `
+      <ul>
+        <li>9:00 AM - 10:30 AM: Math 101</li>
+        <li>11:00 AM - 12:30 PM: History 201</li>
+        <li>2:00 PM - 3:30 PM: Computer Science</li>
+      </ul>
+    `;
+  
+    modal.show();
   }
 
   // Helper functions for room data - replace with your actual data source
@@ -351,6 +390,35 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
   }
+
+    // Sample room color availability - replace with your data
+    const simulatedData = [
+      { room_id: 'woodward-105', status: 'available' },
+      { room_id: 'woodward-106', status: 'occupied' },
+      { room_id: 'woodward-107', status: 'upcoming' },
+      { room_id: 'woodward-108', status: 'available' },
+      { room_id: 'woodward-109', status: 'occupied'},
+      { room_id: 'woodward-110', status: 'occupied'},
+      { room_id: 'woodward-111', status: 'upcoming'}
+    ];
+  
+    simulatedData.forEach(room => {
+      const roomElement = document.getElementById(room.room_id);
+      if (roomElement) {
+        // Remove all possible status classes first
+        roomElement.classList.remove('available', 'occupied', 'upcoming');
+  
+        // Apply the correct class based on the room status
+        if (room.status === 'available') {
+          roomElement.classList.add('available');
+        } else if (room.status === 'upcoming') {
+          roomElement.classList.add('upcoming');
+        } else {
+          roomElement.classList.add('occupied');
+        }
+      }
+    });
+
 });
 
 document.querySelectorAll(".room").forEach(room => {
