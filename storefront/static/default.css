@@ -229,3 +229,9 @@ svg path {
     stroke-width: 4;
     stroke: black
   }
+
+/* match whatever your “click” highlight does; here’s an example */
+.room--highlighted {
+  stroke: white;
+  stroke-width: 4px;
+}
